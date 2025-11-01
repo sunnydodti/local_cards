@@ -140,14 +140,14 @@ class SettingsScreen extends StatelessWidget {
                             onChanged: (val) => cardProvider.setShowNumber(val),
                           ),
                           SwitchListTile(
-                            title: const Text('Show CVV'),
-                            value: cardProvider.showCVV,
-                            onChanged: (val) => cardProvider.setShowCVV(val),
-                          ),
-                          SwitchListTile(
                             title: const Text('Show Expiry'),
                             value: cardProvider.showExpiry,
                             onChanged: (val) => cardProvider.setShowExpiry(val),
+                          ),
+                          SwitchListTile(
+                            title: const Text('Show CVV'),
+                            value: cardProvider.showCVV,
+                            onChanged: (val) => cardProvider.setShowCVV(val),
                           ),
                         ],
                       ),
@@ -172,10 +172,10 @@ class SettingsScreen extends StatelessWidget {
                           leading: const Icon(Icons.code),
                           title: const Text('Source Code'),
                           subtitle:
-                              const Text('github.com/sunnydodti/local-cards'),
+                              const Text('github.com/sunnydodti/local_cards'),
                           trailing: const Icon(Icons.open_in_new, size: 20),
                           onTap: () => _launchUrl(
-                              'https://github.com/sunnydodti/local-cards'),
+                              'https://github.com/sunnydodti/local_cards'),
                         ),
                         ListTile(
                           leading: const Icon(Icons.download),
@@ -183,7 +183,7 @@ class SettingsScreen extends StatelessWidget {
                           subtitle: const Text('Latest Release'),
                           trailing: const Icon(Icons.open_in_new, size: 20),
                           onTap: () => _launchUrl(
-                              'https://github.com/sunnydodti/local-cards/releases/latest'),
+                              'https://github.com/sunnydodti/local_cards/releases/latest'),
                         ),
                         ListTile(
                           leading: const Icon(Icons.inventory),
@@ -191,7 +191,7 @@ class SettingsScreen extends StatelessWidget {
                           subtitle: const Text('View Release History'),
                           trailing: const Icon(Icons.open_in_new, size: 20),
                           onTap: () => _launchUrl(
-                              'https://github.com/sunnydodti/local-cards/releases'),
+                              'https://github.com/sunnydodti/local_cards/releases'),
                         ),
                       ],
                     ),

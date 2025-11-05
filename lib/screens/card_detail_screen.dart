@@ -1,7 +1,8 @@
 import 'add_card_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/my_button.dart';
-import 'package:flutter/services.dart';
+
+import '../services/clipboard_service.dart';
 import 'package:provider/provider.dart';
 
 import '../data/provider/card_provider.dart';
@@ -168,10 +169,10 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
       onPressed: value.isEmpty
           ? null
           : () async {
-              await Clipboard.setData(ClipboardData(text: value));
+              await ClipboardService.copySensitive(value);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$label copied!')),
+                  SnackBar(content: Text('$label copied! Clipboard will auto-clear.'), duration: const Duration(seconds: 2)),
                 );
               }
             },

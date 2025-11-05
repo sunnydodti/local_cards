@@ -126,6 +126,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       controller: cvvController,
       decoration: const InputDecoration(labelText: 'CVV'),
       keyboardType: TextInputType.number,
+      autofillHints: const [AutofillHints.creditCardSecurityCode],
       maxLength: 4,
       onChanged: (_) {
         card.cvv = cvvController.text;
@@ -139,6 +140,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       controller: yearController,
       decoration: const InputDecoration(labelText: 'YY'),
       keyboardType: TextInputType.number,
+      autofillHints: const [AutofillHints.creditCardExpirationYear],
       maxLength: 2,
       onChanged: (v) {
         card.year = int.tryParse(v);
@@ -152,6 +154,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       controller: monthController,
       decoration: const InputDecoration(labelText: 'MM'),
       keyboardType: TextInputType.number,
+      autofillHints: const [AutofillHints.creditCardExpirationMonth],
       maxLength: 2,
       onChanged: (_) {
         card.month = int.tryParse(monthController.text);
@@ -165,7 +168,9 @@ class _AddCardScreenState extends State<AddCardScreen> {
       onPressed: () async {
         if (_formKey.currentState?.validate() ?? false) {
           final isEdit = widget.editCard != null;
-          final id = isEdit ? widget.editCard!.id : DateTime.now().millisecondsSinceEpoch.toString();
+          final id = isEdit
+              ? widget.editCard!.id
+              : DateTime.now().millisecondsSinceEpoch.toString();
           final cardModel = card.toModel(id: id);
           if (isEdit) {
             await context.read<CardProvider>().updateCard(cardModel);
@@ -205,6 +210,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
       controller: holderNameController,
       decoration:
           const InputDecoration(labelText: 'Cardholder Name (optional)'),
+      autofillHints: const [AutofillHints.creditCardName],
       onChanged: (_) {
         card.holderName = holderNameController.text;
         setState(() {});
@@ -229,6 +235,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
         controller: numberController,
         decoration: const InputDecoration(labelText: 'Card Number'),
         keyboardType: TextInputType.number,
+        autofillHints: const [AutofillHints.creditCardNumber],
         onChanged: (_) {
           card.number = numberController.text;
           setState(() {});
@@ -267,5 +274,3 @@ class _AddCardScreenState extends State<AddCardScreen> {
     );
   }
 }
-
-

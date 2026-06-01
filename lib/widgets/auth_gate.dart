@@ -37,6 +37,9 @@ class _AuthGateState extends State<AuthGate> with WidgetsBindingObserver {
     }
   }
 
+  bool _authRequestInProgress = false; // Prevent overlapping auth calls
+
+  // Updated _checkAuth with guard
   Future<void> _checkAuth() async {
     final security = context.read<SecurityService>();
     if (!security.lockEnabled) {
@@ -54,12 +57,18 @@ class _AuthGateState extends State<AuthGate> with WidgetsBindingObserver {
       });
       return;
     }
+    if (_authRequestInProgress) {
+      debugPrint('[AuthGate] Auth request already in progress, skipping.');
+      return;
+    }
+    _authRequestInProgress = true;
     setState(() { _authenticating = true; });
     final ok = await security.authenticateIfNeeded();
     setState(() {
       _authenticating = false;
       _showLock = !ok;
     });
+    _authRequestInProgress = false;
     if (!ok) {
       _showAuthError();
     }

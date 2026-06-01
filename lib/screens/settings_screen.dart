@@ -5,6 +5,7 @@ import '../widgets/my_appbar.dart';
 import '../widgets/mobile_wrapper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/security_service.dart';
+import 'change_devices_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -324,6 +325,21 @@ class SettingsScreen extends StatelessWidget {
                           'Update your card details anytime',
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Change Devices (Transfer/Receive)
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.devices),
+                    title: const Text('Change Devices'),
+                    subtitle: const Text('Transfer data between devices'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const ChangeDevicesScreen(),
+                      ),
                     ),
                   ),
                 ),

@@ -8,12 +8,13 @@ class SecurityService with ChangeNotifier {
   final LocalAuthentication _auth = LocalAuthentication();
   bool _lockEnabled = true;
   bool _authenticated = false;
+  bool _authInProgress = false; // Guard against concurrent auth calls
   DateTime? _lastBackgrounded;
   Duration _timeout = const Duration(minutes: 2);
 
   bool get lockEnabled => _lockEnabled;
   bool get isAuthenticated => _authenticated;
-  Duration get timeout => _timeout;
+  bool get authInProgress => _authInProgress;
 
   void setLockEnabled(bool value) {
     debugPrint('[SecurityService] setLockEnabled: $value');
@@ -54,6 +55,11 @@ class SecurityService with ChangeNotifier {
   }
 
   Future<bool> authenticate() async {
+    if (_authInProgress) {
+      debugPrint('[SecurityService] Authentication already in progress, skipping new request.');
+      return false;
+    }
+    _authInProgress = true;
     debugPrint('[SecurityService] authenticate() called');
     final bool deviceSupported = await _auth.isDeviceSupported();
     final bool canCheckBiometrics = await _auth.canCheckBiometrics;
@@ -63,6 +69,7 @@ class SecurityService with ChangeNotifier {
       debugPrint('[SecurityService] No device auth available, bypassing.');
       _authenticated = true;
       notifyListeners();
+      _authInProgress = false;
       return true;
     }
     try {
@@ -78,6 +85,8 @@ class SecurityService with ChangeNotifier {
       _authenticated = false;
       notifyListeners();
       return false;
+    } finally {
+      _authInProgress = false;
     }
   }
 }

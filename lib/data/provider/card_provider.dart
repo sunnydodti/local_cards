@@ -43,6 +43,7 @@ class CardProvider extends ChangeNotifier {
     await box.put(Constants.cardDetailShowExpiry, value);
     notifyListeners();
   }
+
   final CardService _service = CardService.instance();
   List<CardModel> _cards = [];
   bool _loading = false;

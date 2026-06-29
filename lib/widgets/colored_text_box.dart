@@ -23,7 +23,8 @@ class ColoredTextBox extends StatelessWidget {
   });
 
   // Helper constructors for different colors
-  factory ColoredTextBox.green(String text, {double fontSize = 13, upperCase = true}) =>
+  factory ColoredTextBox.green(String text,
+          {double fontSize = 13, upperCase = true}) =>
       ColoredTextBox(
         text: text,
         color: Colors.green,
@@ -31,7 +32,8 @@ class ColoredTextBox extends StatelessWidget {
         upperCase: upperCase,
       );
 
-  factory ColoredTextBox.red(String text, {double fontSize = 13, upperCase = true}) =>
+  factory ColoredTextBox.red(String text,
+          {double fontSize = 13, upperCase = true}) =>
       ColoredTextBox(
         text: text,
         color: recordingColor,
@@ -39,7 +41,8 @@ class ColoredTextBox extends StatelessWidget {
         upperCase: upperCase,
       );
 
-  factory ColoredTextBox.orange(String text, {double fontSize = 13, upperCase = true}) =>
+  factory ColoredTextBox.orange(String text,
+          {double fontSize = 13, upperCase = true}) =>
       ColoredTextBox(
         text: text,
         color: Colors.orange,
@@ -47,7 +50,8 @@ class ColoredTextBox extends StatelessWidget {
         upperCase: upperCase,
       );
 
-  factory ColoredTextBox.grey(String text, {double fontSize = 13, upperCase = true}) =>
+  factory ColoredTextBox.grey(String text,
+          {double fontSize = 13, upperCase = true}) =>
       ColoredTextBox(
         text: text,
         color: Colors.grey,
@@ -55,7 +59,8 @@ class ColoredTextBox extends StatelessWidget {
         upperCase: upperCase,
       );
 
-  factory ColoredTextBox.blue(String text, {double fontSize = 13, upperCase = true}) =>
+  factory ColoredTextBox.blue(String text,
+          {double fontSize = 13, upperCase = true}) =>
       ColoredTextBox(
         text: text,
         color: Colors.blue,

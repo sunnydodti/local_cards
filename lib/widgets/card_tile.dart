@@ -57,9 +57,15 @@ class CardTile extends StatelessWidget {
     String? expirySecondry;
     String? cvvSecondry;
 
-    if (cardHolderName.isNotEmpty) cardHolderSecondary = 'Card Holder';
-    if (expiryText.isNotEmpty) expirySecondry = 'Expiry';
-    if (cvvText.isNotEmpty) cvvSecondry = 'CVV';
+    if (cardHolderName.isNotEmpty) {
+      cardHolderSecondary = 'Card Holder';
+    }
+    if (expiryText.isNotEmpty) {
+      expirySecondry = 'Expiry';
+    }
+    if (cvvText.isNotEmpty) {
+      cvvSecondry = 'CVV';
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,8 +143,12 @@ class CardTile extends StatelessWidget {
       (detailVisibility.showExpiry || type == CardTileType.preview));
 
   String get _cardNumberDisplayText {
-    if (type == CardTileType.masked) return card.maskedNumberText;
-    if (type != CardTileType.preview && !detailVisibility.showNumber) return card.maskedNumberText;
+    if (type == CardTileType.masked) {
+      return card.maskedNumberText;
+    }
+    if (type != CardTileType.preview && !detailVisibility.showNumber) {
+      return card.maskedNumberText;
+    }
     return _getConditionalDisplayText(card.cardNumberText,
         type == CardTileType.preview || detailVisibility.showNumber);
   }

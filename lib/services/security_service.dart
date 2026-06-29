@@ -36,18 +36,22 @@ class SecurityService with ChangeNotifier {
   }
 
   Future<bool> authenticateIfNeeded() async {
-    debugPrint('[SecurityService] authenticateIfNeeded called. lockEnabled=$_lockEnabled, authenticated=$_authenticated, lastBackgrounded=$_lastBackgrounded');
+    debugPrint(
+        '[SecurityService] authenticateIfNeeded called. lockEnabled=$_lockEnabled, authenticated=$_authenticated, lastBackgrounded=$_lastBackgrounded');
     if (!_lockEnabled) {
-      debugPrint('[SecurityService] Lock not enabled, skipping authentication.');
+      debugPrint(
+          '[SecurityService] Lock not enabled, skipping authentication.');
       _authenticated = true;
       notifyListeners();
       return true;
     }
     if (_lastBackgrounded != null) {
       final elapsed = DateTime.now().difference(_lastBackgrounded!);
-      debugPrint('[SecurityService] Time since backgrounded: $elapsed, timeout=$_timeout');
+      debugPrint(
+          '[SecurityService] Time since backgrounded: $elapsed, timeout=$_timeout');
       if (elapsed < _timeout && _authenticated) {
-        debugPrint('[SecurityService] Within timeout and already authenticated.');
+        debugPrint(
+            '[SecurityService] Within timeout and already authenticated.');
         return true;
       }
     }
@@ -56,7 +60,8 @@ class SecurityService with ChangeNotifier {
 
   Future<bool> authenticate() async {
     if (_authInProgress) {
-      debugPrint('[SecurityService] Authentication already in progress, skipping new request.');
+      debugPrint(
+          '[SecurityService] Authentication already in progress, skipping new request.');
       return false;
     }
     _authInProgress = true;
@@ -64,7 +69,8 @@ class SecurityService with ChangeNotifier {
     final bool deviceSupported = await _auth.isDeviceSupported();
     final bool canCheckBiometrics = await _auth.canCheckBiometrics;
     final isAvailable = deviceSupported || canCheckBiometrics;
-    debugPrint('[SecurityService] deviceSupported=$deviceSupported, canCheckBiometrics=$canCheckBiometrics, isAvailable=$isAvailable');
+    debugPrint(
+        '[SecurityService] deviceSupported=$deviceSupported, canCheckBiometrics=$canCheckBiometrics, isAvailable=$isAvailable');
     if (!isAvailable) {
       debugPrint('[SecurityService] No device auth available, bypassing.');
       _authenticated = true;

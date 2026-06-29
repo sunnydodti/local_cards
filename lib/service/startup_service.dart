@@ -3,7 +3,7 @@ import 'package:hive_ce_flutter/adapters.dart';
 import '../data/constants.dart';
 
 class StartupService {
-    static Future<void> init() async {
+  static Future<void> init() async {
     await _init();
   }
 
@@ -18,9 +18,7 @@ class StartupService {
     await Hive.openBox(Constants.box);
   }
 
-  static Future<void> _initDB() async {
-  }
+  static Future<void> _initDB() async {}
 
-  static Future _initPWA() async {
-  }
+  static Future _initPWA() async {}
 }

@@ -66,18 +66,18 @@ class CardModel {
     required this.cardNumber,
     required this.expiryMonth,
     required this.expiryYear,
-  required this.cvv,
+    required this.cvv,
     this.holderName,
     this.type = CardType.credit,
     this.colorScheme,
-  // removed duplicate cvv
+    // removed duplicate cvv
     DateTime? createdAt,
     DateTime? updatedAt,
   })  : createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now();
 
   /// Returns a masked card number suitable for UI (keeps last 4 digits).
-  
+
   String get maskedNumberText {
     String number = cardNumber;
     final last =
@@ -138,7 +138,7 @@ class CardModel {
       cardNumber: cardNumber ?? this.cardNumber,
       expiryMonth: expiryMonth ?? this.expiryMonth,
       expiryYear: expiryYear ?? this.expiryYear,
-  cvv: cvv ?? this.cvv,
+      cvv: cvv ?? this.cvv,
       holderName: holderName ?? this.holderName,
       type: type ?? this.type,
       colorScheme: colorScheme ?? this.colorScheme,
@@ -176,7 +176,7 @@ class CardModel {
       cardNumber: map['cardNumber'] as String,
       expiryMonth: (map['expiryMonth'] as num).toInt(),
       expiryYear: (map['expiryYear'] as num).toInt(),
-  cvv: map['cvv'] as String,
+      cvv: map['cvv'] as String,
       holderName: map['holderName'] as String?,
       type: CardTypeX.fromString(map['type'] as String?),
       colorScheme: map['colorScheme'] != null
@@ -218,7 +218,7 @@ class CardViewModel {
     number = model.cardNumber;
     month = model.expiryMonth;
     year = model.expiryYear;
-  cvv = model.cvv;
+    cvv = model.cvv;
     holderName = model.holderName;
     type = model.type;
     colorScheme = model.colorScheme;
@@ -232,7 +232,7 @@ class CardViewModel {
       cardNumber: number ?? '',
       expiryMonth: month ?? 0,
       expiryYear: year ?? 0,
-  cvv: cvv,
+      cvv: cvv,
       holderName: holderName ?? '',
       type: type,
       colorScheme: colorScheme,

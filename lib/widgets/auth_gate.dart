@@ -62,7 +62,9 @@ class _AuthGateState extends State<AuthGate> with WidgetsBindingObserver {
       return;
     }
     _authRequestInProgress = true;
-    setState(() { _authenticating = true; });
+    setState(() {
+      _authenticating = true;
+    });
     final ok = await security.authenticateIfNeeded();
     setState(() {
       _authenticating = false;
@@ -86,7 +88,8 @@ class _AuthGateState extends State<AuthGate> with WidgetsBindingObserver {
           actions: [
             TextButton(
               onPressed: () {
-                debugPrint('[AuthGate] Retry pressed, re-attempting authentication');
+                debugPrint(
+                    '[AuthGate] Retry pressed, re-attempting authentication');
                 Navigator.of(context).pop();
                 _checkAuth();
               },
@@ -107,7 +110,8 @@ class _AuthGateState extends State<AuthGate> with WidgetsBindingObserver {
     }
     if (_showLock) {
       return const Scaffold(
-        body: Center(child: Text('Authentication required')), // fallback if dialog fails
+        body: Center(
+            child: Text('Authentication required')), // fallback if dialog fails
       );
     }
     return widget.child;

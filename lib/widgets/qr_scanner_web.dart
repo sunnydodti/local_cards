@@ -14,7 +14,8 @@ class QRScannerWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          const Text('Web build: camera scanner not available. Paste the payload below.'),
+          const Text(
+              'Web build: camera scanner not available. Paste the payload below.'),
           const SizedBox(height: 8),
           TextField(
             controller: c,

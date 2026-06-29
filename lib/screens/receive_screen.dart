@@ -111,15 +111,15 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
 }
 
 class _PasswordDialog extends StatelessWidget {
-  const _PasswordDialog({Key? key}) : super(key: key);
+  const _PasswordDialog();
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
     return AlertDialog(
       title: const Text('Enter password'),
       content: TextField(
-        controller: _controller,
+        controller: controller,
         obscureText: true,
         decoration: const InputDecoration(labelText: 'Password'),
         autofocus: true,
@@ -130,7 +130,7 @@ class _PasswordDialog extends StatelessWidget {
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () => Navigator.of(context).pop(_controller.text),
+          onPressed: () => Navigator.of(context).pop(controller.text),
           child: const Text('OK'),
         ),
       ],

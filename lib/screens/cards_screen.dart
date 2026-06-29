@@ -76,6 +76,7 @@ class CardsScreen extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const AddCardScreen()),
             );
             // reload
+            if (!context.mounted) return;
             context.read<CardProvider>().load();
           },
           child: const Icon(Icons.add),

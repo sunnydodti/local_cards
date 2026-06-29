@@ -109,7 +109,8 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
   }
 
   Future<void> _handleDelete() async {
-    final card = context.read<CardProvider>().getById(widget.cardId);
+    final provider = context.read<CardProvider>();
+    final card = provider.getById(widget.cardId);
     if (card == null) return;
     final confirmed = await showDialog<bool>(
       context: context,
@@ -127,8 +128,9 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
       ),
     );
     if (confirmed == true) {
-      await context.read<CardProvider>().deleteCard(card.id);
-      if (context.mounted) Navigator.of(context).pop();
+      await provider.deleteCard(card.id);
+      if (!mounted) return;
+      Navigator.of(context).pop();
     }
   }
 
@@ -170,11 +172,12 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
           ? null
           : () async {
               await ClipboardService.copySensitive(value);
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$label copied! Clipboard will auto-clear.'), duration: const Duration(seconds: 2)),
-                );
-              }
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text('$label copied! Clipboard will auto-clear.'),
+                    duration: const Duration(seconds: 2)),
+              );
             },
     );
   }

@@ -51,6 +51,7 @@ class _TransferScreenState extends State<TransferScreen> {
     final encrypted = TransferService.encryptPayload(payload, password);
 
     // Show QR in a dialog
+        if (!mounted) return;
     await showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -71,7 +72,7 @@ class _TransferScreenState extends State<TransferScreen> {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: const Color.fromRGBO(0, 0, 0, 0.1),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -96,7 +97,8 @@ class _TransferScreenState extends State<TransferScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: SelectableText(
                       encrypted,
-                      style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                      style: const TextStyle(
+                          fontSize: 10, fontFamily: 'monospace'),
                     ),
                   ),
                 ],
@@ -149,8 +151,8 @@ class _TransferScreenState extends State<TransferScreen> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                   suffixIcon: IconButton(
-                    icon:
-                        Icon(_obscure ? Icons.visibility : Icons.visibility_off),
+                    icon: Icon(
+                        _obscure ? Icons.visibility : Icons.visibility_off),
                     onPressed: () => setState(() => _obscure = !_obscure),
                   ),
                 ),

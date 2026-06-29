@@ -10,7 +10,8 @@ class MyAppbar {
     bool back = false,
     Widget? leading,
   }) {
-    assert(leading == null || !back, 'Cannot provide both leading widget and back button');
+    assert(leading == null || !back,
+        'Cannot provide both leading widget and back button');
     Icon icon = Theme.of(context).brightness == Brightness.light
         ? Icon(Icons.light_mode_outlined)
         : Icon(Icons.dark_mode_outlined);

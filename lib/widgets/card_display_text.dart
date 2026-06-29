@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class CardDisplayText extends StatelessWidget {
   final String? primaryText;
   final String? secondaryText;

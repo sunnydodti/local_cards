@@ -23,7 +23,7 @@ android {
     }
 
     namespace = "com.sunnydodti.local_cards"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

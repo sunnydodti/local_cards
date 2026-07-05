@@ -190,7 +190,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   DropdownButtonFormField<CardType> _buildCardTypeField() {
     return DropdownButtonFormField<CardType>(
-      initialValue: type,
+      value: type,
       items: CardType.values
           .map((t) => DropdownMenuItem(value: t, child: Text(t.name)))
           .toList(),
@@ -248,7 +248,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   DropdownButtonFormField<CardNetwork> _buildNetworkField() {
     return DropdownButtonFormField<CardNetwork>(
-      initialValue: network,
+      value: network,
       items: CardNetwork.values
           .map((n) =>
               DropdownMenuItem(value: n, child: Text(n.name.toUpperCase())))

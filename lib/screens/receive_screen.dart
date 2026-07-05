@@ -27,9 +27,10 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 Text(
                   'Scan or paste the transfer payload',
                   style: theme.textTheme.bodyMedium,
@@ -44,12 +45,10 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                     child: const Text('Paste Base64'),
                   ),
                 ),
-                Flexible(
-                     child: SizedBox(
-                       height: 300,
-                       width: double.infinity,
-                       child: QRScannerWidget(onScanned: _handleScanned),
-                     ),
+                SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: QRScannerWidget(onScanned: _handleScanned),
                 ),
                 // Helper method for pasting a Base64 payload
                 // (implemented later in the file)

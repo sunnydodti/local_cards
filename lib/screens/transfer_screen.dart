@@ -4,9 +4,11 @@ import '../widgets/my_appbar.dart';
 import '../widgets/mobile_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'dart:math' as math;
 import '../services/security_service.dart';
 import '../service/card_service.dart';
 import '../services/transfer_service.dart';
+import 'full_screen_qr_page.dart';
 
 class TransferScreen extends StatefulWidget {
   const TransferScreen({super.key});
@@ -52,75 +54,11 @@ class _TransferScreenState extends State<TransferScreen> {
 
     // Show QR in a dialog
         if (!mounted) return;
-    await showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Scan QR Code'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Scan this QR code from your new device to transfer your data securely.',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color.fromRGBO(0, 0, 0, 0.1),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(16),
-                child: QrImageView(
-                  data: encrypted,
-                  version: QrVersions.auto,
-                  size: 240.0,
-                  gapless: false,
-                ),
-              ),
-              const SizedBox(height: 20),
-              ExpansionTile(
-                title: const Text(
-                  'Show raw encrypted payload',
-                  style: TextStyle(fontSize: 12),
-                ),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: SelectableText(
-                      encrypted,
-                      style: const TextStyle(
-                          fontSize: 10, fontFamily: 'monospace'),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Clipboard.setData(ClipboardData(text: encrypted));
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Payload copied to clipboard')),
-              );
-            },
-            child: const Text('Copy Raw Text'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Close'),
-          ),
-        ],
+    // Open a full-screen page to maximize QR size for better scanning.
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => FullScreenQrPage(encrypted: encrypted),
+        fullscreenDialog: true,
       ),
     );
 

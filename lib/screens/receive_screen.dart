@@ -36,17 +36,23 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
-                Flexible(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Card(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: QRScannerWidget(onScanned: _handleScanned),
-                      ),
-                    ),
+                // Button to paste a Base64 string as an alternative to scanning
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: _pasteBase64,
+                    child: const Text('Paste Base64'),
                   ),
                 ),
+                Flexible(
+                     child: SizedBox(
+                       height: 300,
+                       width: double.infinity,
+                       child: QRScannerWidget(onScanned: _handleScanned),
+                     ),
+                ),
+                // Helper method for pasting a Base64 payload
+                // (implemented later in the file)
               ],
             ),
           ),
@@ -108,6 +114,41 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
+
+  // ---------------------------------------------------------------------------
+  //  Paste‑Base64 dialog
+  // ---------------------------------------------------------------------------
+  Future<void> _pasteBase64() async {
+    final TextEditingController controller = TextEditingController();
+    final String? result = await showDialog<String?>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Paste Base64 payload'),
+        content: TextField(
+          controller: controller,
+          maxLines: null,
+          decoration: const InputDecoration(
+            hintText: 'Enter the Base64 string here',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(null),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+    if (result != null && result.isNotEmpty) {
+      // Re‑use the same handling logic as a scanned QR code.
+      await _handleScanned(result);
+    }
+  }
+
 }
 
 class _PasswordDialog extends StatelessWidget {

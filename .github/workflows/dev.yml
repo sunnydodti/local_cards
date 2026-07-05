@@ -30,7 +30,7 @@ jobs:
           repository: sunnydodti/workflows
           token: ${{ secrets.BUILD_INFO_TOKEN }}
           path: workflows
-          ref: main
+                      ref: android-ci-fix
 
       - name: "Get App Version"
         id: get_version
@@ -63,7 +63,7 @@ jobs:
           repository: sunnydodti/workflows
           token: ${{ secrets.BUILD_INFO_TOKEN }}
           path: workflows
-          ref: main
+                                ref: android-ci-fix
 
       - name: Set up Java
         uses: actions/setup-java@v2

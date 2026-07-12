@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/card.dart';
 import '../service/card_service.dart';
 import '../services/transfer_service.dart';
+import 'package:provider/provider.dart';
+import '../data/provider/card_provider.dart';
 import '../widgets/mobile_wrapper.dart';
 import '../widgets/my_appbar.dart';
 import '../widgets/qr_scanner.dart';
@@ -78,6 +80,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
       final payload = TransferService.decryptPayload(code, password);
       await _importPayload(payload);
       _showMessage('Data imported');
+      context.read<CardProvider>().load();
       return true;
     } catch (_) {
       _showMessage('Invalid or unsupported QR data');

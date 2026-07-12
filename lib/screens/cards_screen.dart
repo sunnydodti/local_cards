@@ -47,24 +47,27 @@ class CardsScreen extends StatelessWidget {
               );
             }
 
-            return ListView.separated(
-              padding: const EdgeInsets.all(12),
-              itemCount: cards.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 8),
-              itemBuilder: (context, i) => GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => CardDetailScreen(cardId: cards[i].id),
-                    ),
-                  );
-                },
-                child: CardTile(
-                  type: CardTileType.masked,
-                  card: cards[i],
-                  onDelete: (id) async {
-                    await provider.deleteCard(id);
+            return RefreshIndicator(
+              onRefresh: () async => provider.load(),
+              child: ListView.separated(
+                padding: const EdgeInsets.all(12),
+                itemCount: cards.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                itemBuilder: (context, i) => GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => CardDetailScreen(cardId: cards[i].id),
+                      ),
+                    );
                   },
+                  child: CardTile(
+                    type: CardTileType.masked,
+                    card: cards[i],
+                    onDelete: (id) async {
+                      await provider.deleteCard(id);
+                    },
+                  ),
                 ),
               ),
             );
